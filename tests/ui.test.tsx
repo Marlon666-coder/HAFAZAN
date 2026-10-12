@@ -62,8 +62,11 @@ describe("app navigation and core flows", () => {
     await user.type(to, "7");
     await user.click(screen.getByRole("button", { name: /Tambah Rentang/i }));
 
-    // The range chip should appear.
-    expect(await screen.findByText(/Ayat 1–7/i)).toBeInTheDocument();
+    // The range chip should appear (scoped to its remove button to avoid
+    // also matching the history entry text).
+    expect(
+      await screen.findByRole("button", { name: /Hapus rentang ayat 1 sampai 7/i }),
+    ).toBeInTheDocument();
 
     // Storage should now contain surah 1 progress.
     const raw = window.localStorage.getItem("hafazan:appdata:v1");
@@ -76,7 +79,15 @@ describe("app navigation and core flows", () => {
     const user = userEvent.setup();
     renderApp();
     await user.click(screen.getAllByRole("link", { name: /Surah/i })[0]);
-    await user.click(await screen.findByRole("link", { name: /An-Nas/i }));
+    // Use the exact surah list link "114. An-Nas …" to disambiguate from
+    // An-Nasr etc.
+    const links = await screen.findAllByRole("link");
+    const nasLink = links.find((el) => {
+      const t = el.textContent ?? "";
+      return t.includes("An-Nas") && !t.includes("An-Nasr") && t.includes("Manusia");
+    });
+    expect(nasLink).toBeTruthy();
+    await user.click(nasLink!);
 
     const group = await screen.findByRole("group", { name: /Ubah status hafalan/i });
     await user.click(within(group).getByRole("button", { name: "Sudah Hafal" }));
