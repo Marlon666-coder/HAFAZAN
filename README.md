@@ -6,7 +6,7 @@ HAFAZAN adalah _personal Qur'an memorization tracker_ — alat pribadi untuk men
 
 HAFAZAN **bukan** aplikasi membaca Al-Qur'an dan bukan pengganti mushaf. Aplikasi ini tidak memuat teks ayat — fokusnya adalah pelacakan hafalan.
 
-Seluruh data tersimpan **lokal di peramban Anda** (localStorage). Tidak ada backend, akun, login, atau koneksi internet yang dibutuhkan setelah aplikasi dimuat.
+Seluruh **data progres** tersimpan **lokal di peramban Anda** (localStorage). Tidak ada backend, akun, atau login. Aplikasi inti berjalan tanpa koneksi internet setelah dimuat. Satu-satunya fitur yang membutuhkan internet adalah **pemutar murattal** (audio di-_streaming_ dari sumber publik [everyayah.com](https://everyayah.com)); bila offline, pemutar menampilkan pesan dan pelacakan tetap berjalan normal.
 
 ---
 
@@ -18,7 +18,8 @@ Seluruh data tersimpan **lokal di peramban Anda** (localStorage). Tidak ada back
 - **Muroja'ah Harian** — sesi muroja'ah dengan checklist, catatan, kalender aktivitas, dan perhitungan streak berbasis hari kalender lokal.
 - **Target & Jadwal** — kalkulator target transparan dengan hari belajar aktif, estimasi ayat/hari, estimasi tanggal selesai, dan peringatan realisme.
 - **Statistik & Pencapaian** — grafik progres (SVG), breakdown per juz berbasis pemetaan rentang ayat, ringkasan status, dan badge pencapaian.
-- **Pengaturan** — profil lokal, tema terang/gelap/sistem, preferensi, ekspor/impor cadangan JSON, dan reset dengan konfirmasi.
+- **Murattal** — pemutar audio tilawah per surah di halaman detail (putar berurutan, lompat/ulang per ayat, ulangi surah). Pilih qari di Pengaturan. Audio di-_streaming_ dari sumber publik dan **membutuhkan koneksi internet**; pelacakan hafalan tetap berfungsi penuh tanpa koneksi.
+- **Pengaturan** — profil lokal, tema terang/gelap/sistem, preferensi, pilihan qari murattal, ekspor/impor cadangan JSON, dan reset dengan konfirmasi.
 
 ## 🧱 Teknologi
 

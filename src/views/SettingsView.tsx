@@ -11,6 +11,7 @@ import type { AppData } from "../types";
 import type { ThemePreference, ProgressDisplay } from "../types/settings";
 import { totalMemorizedAyahs } from "../state/selectors";
 import { formatNumber } from "../utils/format";
+import { RECITERS } from "../data/reciters";
 import styles from "./SettingsView.module.css";
 
 const THEME_OPTIONS: { value: ThemePreference; label: string; icon: typeof Sun }[] = [
@@ -134,6 +135,23 @@ export function SettingsView() {
             <option value="percent">Persentase</option>
             <option value="ayah">Jumlah ayat</option>
           </select>
+        </label>
+        <label style={{ display: "block", marginTop: "1rem" }}>
+          <span className="label">Qari murattal</span>
+          <select
+            className="select"
+            value={settings.reciterId}
+            onChange={(e) => store.updateSettings({ reciterId: e.target.value })}
+          >
+            {RECITERS.map((r) => (
+              <option key={r.id} value={r.id}>
+                {r.name}
+              </option>
+            ))}
+          </select>
+          <span className="hint" style={{ display: "block", marginTop: "0.5rem" }}>
+            Dipakai pemutar murattal di halaman detail surah. Audio di-streaming dan membutuhkan koneksi internet.
+          </span>
         </label>
         <label className={styles.toggleRow}>
           <input

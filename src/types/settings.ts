@@ -27,5 +27,7 @@ export interface Settings {
   progressDisplay: ProgressDisplay;
   /** Ask for confirmation before destructive actions. */
   confirmDestructive: boolean;
+  /** Preferred murattal reciter id (see src/data/reciters.ts). */
+  reciterId: string;
   goal: Goal;
 }

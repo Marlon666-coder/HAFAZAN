@@ -5,6 +5,7 @@ import { PageHeader } from "../components/layout/PageHeader";
 import { StatusBadge } from "../components/common/StatusBadge";
 import { ProgressBar } from "../components/common/ProgressBar";
 import { useToast } from "../components/feedback/ToastProvider";
+import { MurattalPlayer } from "../components/surah/MurattalPlayer";
 import { useAppStore } from "../state/appStore";
 import { emptyProgress } from "../state/selectors";
 import { getSurah } from "../data/surahs";
@@ -144,6 +145,11 @@ export function SurahDetailView() {
           </p>
         </section>
       </div>
+
+      <section className={"card " + styles.block}>
+        <h2 className={styles.blockTitle}>Murattal</h2>
+        <MurattalPlayer surah={surah.number} ayahCount={surah.ayahCount} />
+      </section>
 
       <section className={"card " + styles.block}>
         <h2 className={styles.blockTitle}>Rentang Ayat yang Dihafal</h2>

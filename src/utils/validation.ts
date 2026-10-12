@@ -2,6 +2,7 @@ import type { AppData, SurahProgress } from "../types";
 import { SCHEMA_VERSION } from "../types";
 import type { MemorizationStatus } from "../types/memorization";
 import type { ThemePreference, ProgressDisplay } from "../types/settings";
+import { DEFAULT_RECITER_ID, RECITERS } from "../data/reciters";
 
 const STATUSES: MemorizationStatus[] = ["not-started", "in-progress", "memorized", "review"];
 const THEMES: ThemePreference[] = ["light", "dark", "system"];
@@ -35,6 +36,7 @@ export function createEmptyAppData(): AppData {
       theme: "system",
       progressDisplay: "percent",
       confirmDestructive: true,
+      reciterId: DEFAULT_RECITER_ID,
       goal: {
         dailyAyahTarget: 0,
         dailyPageTarget: 0,
@@ -135,6 +137,7 @@ export function sanitizeAppData(raw: unknown): AppData {
         ? (s.progressDisplay as ProgressDisplay)
         : "percent",
       confirmDestructive: bool(s.confirmDestructive, true),
+      reciterId: RECITERS.some((r) => r.id === s.reciterId) ? (s.reciterId as string) : DEFAULT_RECITER_ID,
       goal: {
         dailyAyahTarget: Math.max(0, num(g.dailyAyahTarget, 0)),
         dailyPageTarget: Math.max(0, num(g.dailyPageTarget, 0)),
