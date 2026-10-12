@@ -4,6 +4,7 @@ import { HashRouter } from "react-router-dom";
 import "./styles/global.css";
 import { App } from "./App";
 import { AppDataProvider } from "./state/AppDataProvider";
+import { ErrorBoundary } from "./components/feedback/ErrorBoundary";
 
 const rootElement = document.getElementById("root");
 if (!rootElement) {
@@ -14,10 +15,12 @@ createRoot(rootElement).render(
   <StrictMode>
     {/* HashRouter keeps deep links + refresh working on GitHub Pages
         without any server-side rewrite. */}
-    <HashRouter>
-      <AppDataProvider>
-        <App />
-      </AppDataProvider>
-    </HashRouter>
+    <ErrorBoundary>
+      <HashRouter>
+        <AppDataProvider>
+          <App />
+        </AppDataProvider>
+      </HashRouter>
+    </ErrorBoundary>
   </StrictMode>,
 );
