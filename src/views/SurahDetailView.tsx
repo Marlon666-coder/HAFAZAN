@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { ArrowLeft, Plus, Trash2, History } from "lucide-react";
 import { PageHeader } from "../components/layout/PageHeader";
@@ -6,6 +6,7 @@ import { StatusBadge } from "../components/common/StatusBadge";
 import { ProgressBar } from "../components/common/ProgressBar";
 import { useToast } from "../components/feedback/ToastProvider";
 import { MurattalPlayer } from "../components/surah/MurattalPlayer";
+import { AyahTextPanel } from "../components/surah/AyahTextPanel";
 import { useAppStore } from "../state/appStore";
 import { emptyProgress } from "../state/selectors";
 import { getSurah } from "../data/surahs";
@@ -30,6 +31,10 @@ export function SurahDetailView() {
   const [rangeEnd, setRangeEnd] = useState("");
   const [rangeError, setRangeError] = useState<string | null>(null);
   const [notesDraft, setNotesDraft] = useState<string | null>(null);
+  const [activeAyah, setActiveAyah] = useState(0);
+  const [showText, setShowText] = useState(false);
+
+  const handleAyahChange = useCallback((index: number) => setActiveAyah(index), []);
 
   const normalizedRanges = useMemo(
     () => (surah ? normalizeRanges(progress.memorizedRanges, surah.ayahCount) : []),
@@ -147,8 +152,21 @@ export function SurahDetailView() {
       </div>
 
       <section className={"card " + styles.block}>
-        <h2 className={styles.blockTitle}>Murattal</h2>
-        <MurattalPlayer surah={surah.number} ayahCount={surah.ayahCount} />
+        <div className={styles.murattalHead}>
+          <h2 className={styles.blockTitle} style={{ marginBottom: 0 }}>
+            Murattal
+          </h2>
+          <label className={styles.textToggle}>
+            <input type="checkbox" checked={showText} onChange={(e) => setShowText(e.target.checked)} />
+            <span>Tampilkan teks ayat</span>
+          </label>
+        </div>
+        <MurattalPlayer surah={surah.number} ayahCount={surah.ayahCount} onAyahChange={handleAyahChange} />
+        {showText && (
+          <div className={styles.textWrap}>
+            <AyahTextPanel surah={surah.number} activeIndex={activeAyah} />
+          </div>
+        )}
       </section>
 
       <section className={"card " + styles.block}>

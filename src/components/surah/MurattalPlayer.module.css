@@ -96,6 +96,36 @@
   font-weight: 600;
 }
 
+.speedRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.speedLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-right: var(--space-1);
+}
+
+.speedBtn {
+  min-height: 36px;
+  min-width: 48px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.speedBtn:hover {
+  border-color: var(--color-primary);
+}
+
 .error {
   display: flex;
   align-items: flex-start;

@@ -7,9 +7,13 @@ import styles from "./MurattalPlayer.module.css";
 interface MurattalPlayerProps {
   surah: number;
   ayahCount: number;
+  /** Notifies the parent of the current 0-based ayah index (for text highlight). */
+  onAyahChange?: (index: number) => void;
 }
 
 type LoopMode = "off" | "surah" | "ayah";
+
+const SPEEDS = [0.75, 1, 1.25] as const;
 
 /**
  * Streams murattal (per-ayah audio) for a surah from everyayah.com using the
@@ -18,7 +22,7 @@ type LoopMode = "off" | "surah" | "ayah";
  *
  * Audio requires an internet connection; the core tracker stays offline-first.
  */
-export function MurattalPlayer({ surah, ayahCount }: MurattalPlayerProps) {
+export function MurattalPlayer({ surah, ayahCount, onAyahChange }: MurattalPlayerProps) {
   const { data } = useAppStore();
   const reciterId = data.settings.reciterId;
   const reciter = getReciter(reciterId);
@@ -29,8 +33,19 @@ export function MurattalPlayer({ surah, ayahCount }: MurattalPlayerProps) {
   const [current, setCurrent] = useState(0); // 0-based ayah index
   const [playing, setPlaying] = useState(false);
   const [loop, setLoop] = useState<LoopMode>("off");
+  const [speed, setSpeed] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  // Report the active ayah to the parent for text highlighting.
+  useEffect(() => {
+    onAyahChange?.(current);
+  }, [current, onAyahChange]);
+
+  // Keep playbackRate in sync with the chosen speed.
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = speed;
+  }, [speed]);
 
   // Keep a single <audio> element across renders.
   useEffect(() => {
@@ -113,6 +128,7 @@ export function MurattalPlayer({ surah, ayahCount }: MurattalPlayerProps) {
       setError(null);
       setLoading(true);
       audio.src = urls[index];
+      audio.playbackRate = speed;
       await audio.play();
       setPlaying(true);
     } catch {
@@ -233,6 +249,21 @@ export function MurattalPlayer({ surah, ayahCount }: MurattalPlayerProps) {
           {loop === "surah" && "Ulangi seluruh surah"}
           {loop === "ayah" && "Ulangi ayat ini"}
         </span>
+      </div>
+
+      <div className={styles.speedRow} role="group" aria-label="Kecepatan pemutaran">
+        <span className={styles.speedLabel}>Kecepatan</span>
+        {SPEEDS.map((s) => (
+          <button
+            key={s}
+            type="button"
+            className={`${styles.speedBtn} ${speed === s ? styles.active : ""}`}
+            aria-pressed={speed === s}
+            onClick={() => setSpeed(s)}
+          >
+            {s}×
+          </button>
+        ))}
       </div>
 
       {error && (
