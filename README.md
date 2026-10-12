@@ -93,17 +93,22 @@ Repo ini menyertakan workflow `.github/workflows/deploy.yml` yang otomatis memba
 
 ### Cara mengaktifkan
 
-1. Push kode ke branch `main`:
+> **Langkah wajib sekali saja:** GitHub Pages harus diaktifkan secara manual
+> terlebih dahulu. Token bawaan GitHub Actions tidak dapat membuat situs Pages
+> pada run pertama, sehingga workflow akan gagal di langkah _Configure Pages_
+> sampai Pages diaktifkan.
+
+1. Buka repository Anda di GitHub, lalu masuk ke **Settings → Pages**.
+2. Pada **Source**, pilih **GitHub Actions**. (Cukup sekali.)
+3. Push kode ke branch `main`:
    ```bash
    git add .
    git commit -m "Deploy HAFAZAN"
    git push origin main
    ```
-2. Buka repository Anda di GitHub.
-3. Masuk ke **Settings → Pages**.
-4. Pada **Source**, pilih **GitHub Actions**.
-5. Buka tab **Actions** untuk melihat status deployment workflow "Deploy to GitHub Pages".
-6. Setelah job `deploy` selesai, URL situs tampil pada ringkasan run (environment `github-pages`) — biasanya `https://<owner>.github.io/<repo>/`.
+   (Atau jalankan ulang workflow terakhir dari tab **Actions** → **Run workflow**.)
+4. Buka tab **Actions** untuk melihat status workflow "Deploy to GitHub Pages".
+5. Setelah job `deploy` selesai, URL situs tampil pada ringkasan run (environment `github-pages`) — biasanya `https://<owner>.github.io/<repo>/`.
 
 ### Base path otomatis
 
