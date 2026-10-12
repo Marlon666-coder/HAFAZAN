@@ -1,0 +1,141 @@
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-3);
+}
+
+.overallCard {
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+}
+
+.overallHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.overallPct {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.recommendationCard,
+.reviewCard {
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.recoTitle {
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+.inProgressCard {
+  padding: var(--space-5);
+}
+
+.inProgressList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.inProgressItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  color: inherit;
+}
+
+.inProgressItem:hover {
+  background: var(--color-surface-2);
+  text-decoration: none;
+}
+
+.inProgressMain {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.inProgressMain strong {
+  display: block;
+}
+
+.inProgressMain .hint {
+  display: block;
+  font-size: var(--text-xs);
+}
+
+.surahNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  flex-shrink: 0;
+}
+
+.inProgressRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.miniBar {
+  width: 110px;
+}
+
+.emptyActions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .statGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .statGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

@@ -1,0 +1,18 @@
+.track {
+  width: 100%;
+  height: 8px;
+  background: var(--color-primary-soft);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--motion-base) var(--ease);
+}
+
+.gold {
+  background: var(--color-gold);
+}

@@ -1,0 +1,28 @@
+.chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.area {
+  fill: var(--color-primary-soft);
+  opacity: 0.7;
+}
+
+.line {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dot {
+  fill: var(--color-primary);
+}
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+}
